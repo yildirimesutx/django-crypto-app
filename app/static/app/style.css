@@ -1,0 +1,14 @@
+div{
+    display: flex;
+    /* justify-content: center; */
+    justify-content: space-around;  
+}
+
+
+body{
+    background-color: aliceblue;
+}
+
+.image{
+    display: flex;
+}

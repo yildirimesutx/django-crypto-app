@@ -1,0 +1,41 @@
+{% extends 'app/base.html' %}
+
+{% block main %}
+    
+
+    
+<h1>Home page!</h1>
+
+
+<form action="" method="get">
+
+<input type="text" name="coin_name">
+<input type="submit" value="add">
+
+</form>
+
+
+{% for i in content %}
+<div>
+{% if i.name ==  coin  %}
+<div class="image">
+<img style="width:50px;" src="{{i.image}}" alt="">
+<h3>{{i.name}}</h3>
+</div>
+<h3>{{i.market_cap}}</h3>
+<h3>{{i.price_change_24h}}</h3>
+</div>
+{% endif %}
+
+
+
+{% comment %} <img style="width:50px;" src="{{i.image}}" alt="">
+<p>{{i.cap}}</p>
+<p>{{i.change}}</p> {% endcomment %}
+{% endfor %}
+{% endblock main %}   
+
+{% comment %} <h3>{{name}}</h3>
+<img style="width:50px;" src="{{image}}" alt="">
+<p>{{cap}}</p>
+<p>{{change}}</p> {% endcomment %}
