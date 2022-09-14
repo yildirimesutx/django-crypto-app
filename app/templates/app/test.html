@@ -1,7 +1,19 @@
 
 
+<h3>test page</h3>
+
+<div class="search">  
+
+    <form action="" method="get">
+    
+    <input class="coin-input" type="text" name="coin_name">
+    <input type="submit" value="add">
+    
+    </form>
+
 
 {% for i in coin_data  %}
     {{i.name}}
+    <img src="{{i.image}}" alt="">
 {% endfor %}
     
