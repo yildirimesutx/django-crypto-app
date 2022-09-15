@@ -47,49 +47,65 @@ def home(request):
     response = requests.get(url)
     content = response.json()
     
-
+    
     for i in content:
         # print(i["name"])
         if i["name"] == coin:
             name_c = i["name"]
+            
 
             if Coin.objects.filter(name=name_c):
                 messages.warning(request, 'Coin already exists!')
             else:
                 Coin.objects.create(name=name_c)
                 messages.success(request, 'Coin created!')
-
+                
         else:
             messages.error(request, 'There is no coin!')
 
 
+
+    pprint(content[0]["name"])
+
+                         
+
     coin_data = []
 
     coins = Coin.objects.all()
-    
-    
+  
+    print(coins)
 
-
-    for k in content:
-
-        for y in coins:
-            print(k["name"])
-            # print(y)
-            
-            if y == k["name"]:
+    for k in coins:
+        print(k)
+        for n in range(0,100):
+            # print(n)
+            if content[n]["name"]== k:
                print("hello")
                data = {
-                 "name":k["name"],
-                 "image":k["image"]
+                 "name":content[n]["name"],
+                 "image":content[n]["image"]
                  } 
                print(data) 
-               coin_data.append(data)
+               coin_data.append(data)  
+    
+    # for k in content:
+    #     for y in coins:
+    #         print(k["name"])
+    #         # print(y)
+            
+    #         if y == k["name"]:
+    #            print("hello")
+    #            data = {
+    #              "name":k["name"],
+    #              "image":k["image"]
+    #              } 
+    #            print(data) 
+    #            coin_data.append(data)
                
 
     context ={
          "coin_data" : coin_data
     }    
         
-    # print(coin_data)    
+   
     return render(request, "app/test.html", context)
-# https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=100&page=1&sparkline=false

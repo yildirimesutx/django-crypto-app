@@ -30,3 +30,23 @@ def home(request):
     return render(request, "app/home.html", context)
 
 ```
+
+
+```
+for k in content:
+
+        for y in coins:
+            print(k["name"])
+            # print(y)
+            
+            if y == k["name"]:
+               print("hello")
+               data = {
+                 "name":k["name"],
+                 "image":k["image"]
+                 } 
+               print(data) 
+               coin_data.append(data)
+```
+
+
