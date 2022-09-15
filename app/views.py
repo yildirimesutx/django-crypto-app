@@ -5,41 +5,7 @@ from .models import Coin
 
 from django.contrib import messages
 
-# Create your views here.
 
-
-# def home(request):
-#     url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=100&page=1&sparkline=false"
-    
-#     coin = request.GET.get("coin_name")
-#     print(coin)
-
-#     response = requests.get(url)
-#     content = response.json()
-#     pprint(content[0])
-
-#     # for i in content:
-#     #     print(i)
-#     #     if i.name == coin:
-#     #         pass
-#     #     return
-
-
-    
-#     context = {
-#         "coin" : coin,
-#         "content" : content,
-#         # "image" : content["image"],
-#         # "cap" : content["market_cap"],
-#         # "change" :content["price_change_24h"]
-#         # "name"  : content["coin"]
-     
-#     }
-
-
-
-#     # return render(request)
-#     return render(request, "app/home.html", context)
 
 def home(request):
     coin = request.GET.get("coin_name")
@@ -47,65 +13,59 @@ def home(request):
     response = requests.get(url)
     content = response.json()
     
-    
+    text =""
     for i in content:
-        # print(i["name"])
-        if i["name"] == coin:
+       
+        if i["name"].lower() == coin.lower():
             name_c = i["name"]
             
-
-            if Coin.objects.filter(name=name_c):
-                messages.warning(request, 'Coin already exists!')
+            if  Coin.objects.filter(name=name_c):
+                # messages.warning(request, 'Coin already exists!')
+                # text = 'Coin already exists!'
+                continue
+               
             else:
                 Coin.objects.create(name=name_c)
-                messages.success(request, 'Coin created!')
+                # messages.success(request, 'Coin created!')
+                text = 'Coin created!'
+
                 
         else:
-            messages.error(request, 'There is no coin!')
+            # messages.error(request, 'There is no coin!')
+            text = 'There is no coin!'
 
 
 
-    pprint(content[0]["name"])
+    messages.success(request, text)
+    pprint(content[0])
 
                          
 
     coin_data = []
 
-    coins = Coin.objects.all()
+    coins = Coin.objects.all().order_by("-id")
   
-    print(coins)
+    # print(coins)
 
     for k in coins:
-        print(k)
+        # print(k)
         for n in range(0,100):
             # print(n)
-            if content[n]["name"]== k:
-               print("hello")
+            if content[n]["name"]== str(k):
+            #    print("hello")
                data = {
                  "name":content[n]["name"],
-                 "image":content[n]["image"]
+                 "image":content[n]["image"],
+                 "market":content[n]["current_price"],
+                 "change":content[n]["price_change_24h"],
                  } 
-               print(data) 
+            #    print(data) 
                coin_data.append(data)  
     
-    # for k in content:
-    #     for y in coins:
-    #         print(k["name"])
-    #         # print(y)
-            
-    #         if y == k["name"]:
-    #            print("hello")
-    #            data = {
-    #              "name":k["name"],
-    #              "image":k["image"]
-    #              } 
-    #            print(data) 
-    #            coin_data.append(data)
-               
-
+ 
     context ={
          "coin_data" : coin_data
     }    
         
    
-    return render(request, "app/test.html", context)
+    return render(request, "app/home.html", context)

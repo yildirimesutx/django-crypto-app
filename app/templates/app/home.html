@@ -7,29 +7,30 @@
 
 <form action="" method="get">
 
-<input class="coin-input" type="text" name="coin_name">
+<input class="coin-input" type="text" name="coin_name" placeholder='Provide the coin name'>
 <input type="submit" value="add">
 
 </form>
 </div>
 
 
+
+{% for i in coin_data %}  
 <div class="container">
-{% for i in content %}  
-   {% if i.name ==  coin  %}
 <div class="coin_row">
     <div class="image">
         <img style="width:50px;" src="{{i.image}}" alt="">
         <h3>{{i.name}}</h3>
     </div>
     <div class="coin_data">
-        <h3>{{i.market_cap}}</h3>
-        <h3>{{i.price_change_24h}}</h3>
+        <h4>{{i.market | floatformat:"-3g" }} $</h4>
+        <h4>{{i.change | floatformat:2}}</h4>
     </div>
 </div>
 
-    {% endif %}
-{% endfor %}
+
 </div>
+{% endfor %}
+
 {% endblock main %}   
 

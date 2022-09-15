@@ -5,11 +5,11 @@
 
 .coin_row{
     display: flex;
-    flex-direction: row;
-    justify-items: start;
+    /* flex-direction: row; */
+    /* justify-items: start; */
     align-items: center;
     height: 80px;
-    border-bottom: 1px solid #d7d7d7;
+    /* border-bottom: 1px solid #d7d7d7; */
     width: 900px;
   }
 
@@ -42,6 +42,7 @@
 
 body{
     background-color: aliceblue;
+    font-family: 'Bree Serif', serif;
 }
 
 
