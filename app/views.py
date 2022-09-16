@@ -8,36 +8,37 @@ from django.contrib import messages
 
 
 def home(request):
-    coin = request.GET.get("coin_name")
+    coin = request.GET.get("coin_name") 
     url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=100&page=1&sparkline=false"
     response = requests.get(url)
     content = response.json()
     
     text =""
     for i in content:
-       
-        if i["name"].lower() == coin.lower():
-            name_c = i["name"]
-            
-            if  Coin.objects.filter(name=name_c):
-                # messages.warning(request, 'Coin already exists!')
-                # text = 'Coin already exists!'
-                continue
-               
-            else:
-                Coin.objects.create(name=name_c)
-                # messages.success(request, 'Coin created!')
-                text = 'Coin created!'
-
+        if coin:
+            if i["name"].lower() == coin.lower():
+                name_c = i["name"]
                 
-        else:
-            # messages.error(request, 'There is no coin!')
-            text = 'There is no coin!'
+                if  Coin.objects.filter(name=name_c):
+                    # messages.warning(request, 'Coin already exists!')
+                    # text = 'Coin already exists!'
+                    continue
+                
+                else:
+                    Coin.objects.create(name=name_c)
+                    # messages.success(request, 'Coin created!')
+                    text = 'Coin created!'
+
+                    
+            else:
+                # messages.error(request, 'There is no coin!')
+                # text = 'There is no coin!'
+                continue
 
 
 
-    messages.success(request, text)
-    pprint(content[0])
+    # messages.success(request, text)
+    # pprint(content[0])
 
                          
 
