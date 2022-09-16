@@ -12,7 +12,7 @@ def home(request):
     url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=100&page=1&sparkline=false"
     response = requests.get(url)
     content = response.json()
-    pprint(content)
+    # pprint(content)
     text =""
     for i in content:
         if coin:  # bu kisimi coin ilk etapta boş geldiği için lower method hata veriyor
@@ -61,7 +61,7 @@ def home(request):
                  "market":content[n]["current_price"],
                  "change":content[n]["price_change_24h"],
                  } 
-               print(data) 
+            #    print(data) 
                coin_data.append(data)  
     
  

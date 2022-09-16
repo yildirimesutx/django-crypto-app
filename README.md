@@ -1,5 +1,6 @@
 # Crypto App
 
+<img src="coin.png" />
 
 Belirlediğimiz API den veriyi almak için  `requests` paketini kullanıyoruz.
 
