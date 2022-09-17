@@ -48,21 +48,40 @@ def home(request):
   
     # print(coins)
 
+#     for k in coins:
+#         # print(k)
+#         for n in range(0,100):
+#             # print(n)
+#             if content[n]["name"]== str(k):
+#             #    print("hello")
+#                data = {
+#                  "k" :k, #DB ICINDEKI NAME ID ALMAK ICIN
+#                  "name":content[n]["name"],
+#                  "image":content[n]["image"],
+#                  "market":content[n]["current_price"],
+#                  "change":content[n]["price_change_24h"],
+#                  } 
+#             #    print(data) 
+#                coin_data.append(data)  
+  
+    
     for k in coins:
-        # print(k)
-        for n in range(0,100):
-            # print(n)
-            if content[n]["name"]== str(k):
-            #    print("hello")
-               data = {
-                 "k" :k, #DB ICINDEKI NAME ID ALMAK ICIN
-                 "name":content[n]["name"],
-                 "image":content[n]["image"],
-                 "market":content[n]["current_price"],
-                 "change":content[n]["price_change_24h"],
-                 } 
-            #    print(data) 
-               coin_data.append(data)  
+        # print(type(k))
+        for n in content:
+            # pprint(n)
+            if n["name"]==str(k):
+                data ={
+                
+                "k" :k,
+                "name":n["name"],
+                "image":n["image"],
+                "market":n["current_price"],
+                "change":n["price_change_24h"],
+                }
+
+                pprint(data)
+
+                coin_data.append(data)
     
  
     context ={
@@ -76,5 +95,5 @@ def home(request):
 def delete_coin(request, id):
     coin = get_object_or_404(Coin, id=id)
     coin.delete()
-    messages.success(request, 'City deleted!')
+    messages.success(request, 'Coin deleted!')
     return redirect('home')
